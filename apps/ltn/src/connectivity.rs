@@ -195,11 +195,13 @@ fn setup_editing(
         edit.world.draw_master_batch(ctx, render_cells.draw());
 
         let mut colorer = ColorNetwork::no_fading(app);
-        colorer.ranked_roads(shortcuts.count_per_road.clone(), &app.cs.good_to_bad_red);
+        use widgetry::Color;
+        let scale = map_gui::tools::ColorScale(vec![Color::WHITE, Color::BLACK]);
+        colorer.ranked_roads(shortcuts.count_per_road.clone(), &scale);
         // TODO These two will be on different scales, which'll look really weird!
         colorer.ranked_intersections(
             shortcuts.count_per_intersection.clone(),
-            &app.cs.good_to_bad_red,
+            &scale,
         );
 
         draw_top_layer.append(colorer.draw);

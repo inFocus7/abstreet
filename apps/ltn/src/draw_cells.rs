@@ -34,13 +34,11 @@ impl RenderCells {
         RenderCellsBuilder::new(map, neighborhood).finalize()
     }
 
-    // TODO It'd look nicer to render the cells "underneath" the roads and intersections, at the
-    // layer where areas are shown now
     pub fn draw(&self) -> GeomBatch {
         let mut batch = GeomBatch::new();
         for (color, polygons) in self.colors.iter().zip(self.polygons_per_cell.iter()) {
             for poly in polygons {
-                batch.push(*color, poly.clone());
+                batch.push(color.alpha(0.5), poly.clone());
             }
         }
         batch
@@ -285,7 +283,8 @@ fn color_cells(num_cells: usize, adjacencies: HashSet<(usize, usize)>) -> Vec<Co
             }
         }
         if let Some(color) = available_colors.iter().position(|x| *x) {
-            assigned_colors.push(color);
+            //assigned_colors.push(color);
+            assigned_colors.push(assigned_colors.len() % colors::CELLS.len());
         } else {
             warn!("color_cells ran out of colors");
             assigned_colors.push(0);
