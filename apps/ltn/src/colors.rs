@@ -12,19 +12,19 @@ lazy_static::lazy_static! {
         Color::ORANGE.alpha(0.3),
     ];
 
-    pub static ref CELLS: [Color; 12] = [
-        Color::hex("#8dd3c7"),
-        Color::hex("#ffffb3"),
-        Color::hex("#bebada"),
-        Color::hex("#fb8072"),
-        Color::hex("#80b1d3"),
-        Color::hex("#fdb462"),
-        Color::hex("#b3de69"),
-        Color::hex("#fccde5"),
-        Color::hex("#d9d9d9"),
-        Color::hex("#bc80bd"),
-        Color::hex("#ccebc5"),
-        Color::hex("#ffed6f"),
+    pub static ref CELLS: [Color; 7] = [
+        Color::hex("#213EB5"),
+        Color::hex("#3572AA"),
+        Color::hex("#6899CA"),
+        Color::hex("#96C1EB"),
+        Color::hex("#D96355"),
+        Color::hex("#DDB151"),
+        Color::hex("#ECE571"),
+        /*Color::YELLOW.alpha(0.5),
+        Color::hex("#3CAEA3").alpha(0.5),
+        Color::PURPLE.alpha(0.5),
+        Color::PINK.alpha(0.5),
+        Color::ORANGE.alpha(0.5),*/
     ];
 
     pub static ref FILTER_OUTER: Color = Color::RED;
