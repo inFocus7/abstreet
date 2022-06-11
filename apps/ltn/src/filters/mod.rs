@@ -105,40 +105,22 @@ impl ModalFilters {
 
         let line_thickness = Distance::meters(7.0);
 
+        let icon = GeomBatch::load_svg(ctx, "system/assets/map/modal_filter.svg").scale(0.5);
+
         for (r, dist) in &self.roads {
             let road = map.get_r(*r);
             if let Ok((pt, angle)) = road.center_pts.dist_along(*dist) {
                 let road_width = road.get_width();
 
-                low_zoom.add_circle(pt, road_width, *colors::FILTER_OUTER);
-                // Unzoomed lines aren't sufficient; they only vary the width. We need to stretch
-                // the line to cover the growing circle.
-                low_zoom.add_custom(Box::new(move |batch, thickness| {
-                    batch.push(
-                        *colors::FILTER_INNER,
-                        Line::must_new(
-                            pt.project_away(0.8 * thickness * road_width, angle.rotate_degs(90.0)),
-                            pt.project_away(0.8 * thickness * road_width, angle.rotate_degs(-90.0)),
-                        )
-                        .to_polyline()
-                        .make_polygons(thickness * line_thickness),
-                    );
-                }));
-
                 // TODO Ideally we get rid of Toggle3Zoomed and make DrawUnzoomedShapes handle this
                 // medium-zoom case.
-                batch.unzoomed.push(
-                    *colors::FILTER_OUTER,
-                    Circle::new(pt, road_width).to_polygon(),
-                );
-                batch.unzoomed.push(
-                    *colors::FILTER_INNER,
-                    Line::must_new(
-                        pt.project_away(0.8 * road_width, angle.rotate_degs(90.0)),
-                        pt.project_away(0.8 * road_width, angle.rotate_degs(-90.0)),
-                    )
-                    .make_polygons(line_thickness),
-                );
+                batch.unzoomed.append(icon.clone().centered_on(pt));
+
+                // TODO Memory intensive
+                let icon = icon.clone();
+                low_zoom.add_custom(Box::new(move |batch, thickness| {
+                    batch.append(icon.clone().scale(thickness).centered_on(pt));
+                }));
 
                 // TODO Only cover the driving/parking lanes (and center appropriately)
                 draw_zoomed_planters(
@@ -345,7 +327,7 @@ impl Toggle3Zoomed {
     }
 
     pub fn draw(&self, g: &mut GfxCtx) {
-        if g.canvas.cam_zoom < 1.0 {
+        if g.canvas.is_unzoomed() {
             self.unzoomed.draw(g);
         } else {
             self.draw.draw(g);

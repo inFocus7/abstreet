@@ -4,6 +4,8 @@ use geom::{Circle, Distance, PolyLine, Pt2D};
 
 use crate::{Color, Drawable, GeomBatch, GfxCtx};
 
+// TODO Make this handle everything up to min_zoom. Stop special-casing the middle zoom case.
+
 /// Draw `Circles` and `PolyLines` in map-space that scale their size as the canvas is zoomed. The
 /// goal is to appear with roughly constant screen-space size, but for the moment, this is
 /// approximated by discretizing into 10 buckets. The scaling only happens when the canvas is
