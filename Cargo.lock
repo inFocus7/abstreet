@@ -101,7 +101,7 @@ dependencies = [
  "alsa-sys",
  "bitflags",
  "libc",
- "nix 0.20.0",
+ "nix 0.20.2",
 ]
 
 [[package]]
@@ -705,7 +705,7 @@ dependencies = [
  "mach",
  "ndk 0.3.0",
  "ndk-glue 0.3.0",
- "nix 0.20.0",
+ "nix 0.20.2",
  "oboe",
  "parking_lot 0.11.1",
  "stdweb",
@@ -751,7 +751,7 @@ version = "3.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "232295399409a8b7ae41276757b5a1cc21032848d42bff2352261f958b3ca29a"
 dependencies = [
- "nix 0.20.0",
+ "nix 0.20.2",
  "winapi",
 ]
 
@@ -2481,14 +2481,15 @@ checksum = "e1bcdd74c20ad5d95aacd60ef9ba40fdf77f767051040541df557b7a9b2a2121"
 
 [[package]]
 name = "nix"
-version = "0.20.0"
+version = "0.20.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa9b4819da1bc61c0ea48b63b7bc8604064dd43013e7cc325df098d49cd7c18a"
+checksum = "f5e06129fb611568ef4e868c14b326274959aa70ff7776e9d55323531c374945"
 dependencies = [
  "bitflags",
  "cc",
  "cfg-if 1.0.0",
  "libc",
+ "memoffset",
 ]
 
 [[package]]
